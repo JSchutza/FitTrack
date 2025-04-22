@@ -14,8 +14,8 @@ const workoutSchema = new mongoose.Schema(
     },
     type: {
       type: String,
-      required: [true, 'Please select a workout type'],
-      enum: ['cardio', 'strength', 'flexibility', 'sports', 'other'],
+      required: [true, 'Please add a workout type'],
+      default: 'strength',
     },
     date: {
       type: Date,

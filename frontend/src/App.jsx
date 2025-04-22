@@ -16,6 +16,14 @@ import RegisterForm from './components/Auth/RegisterForm';
 import NavBar from './components/Navigation/NavBar';
 import ProtectedRoute from './components/Shared/ProtectedRoute';
 
+// dashboard components
+import RecentWorkouts from './components/Dashboard/RecentWorkouts';
+import AddWorkoutForm from './components/Dashboard/AddWorkoutForm';
+
+
+
+
+
 function App() {
   const [isAuth, setIsAuth] = useState(false);
   
@@ -36,7 +44,15 @@ function App() {
         
         <main className="flex-grow container mx-auto px-4 py-6">
           <Routes>
-            {/* Public routes */}
+            <Route 
+              path="/workouts/add" 
+              element={
+                <ProtectedRoute isAuth={isAuth}>
+                  <AddWorkoutForm />
+                  <RecentWorkouts />
+                </ProtectedRoute>
+              } 
+            />
             <Route path="/" element={<Home />} />
             <Route 
               path="/login" 
