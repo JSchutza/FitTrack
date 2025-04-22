@@ -1,7 +1,7 @@
 const Workout = require('../models/workoutModel');
 
 // @desc    Get all workouts for the logged in user
-// @route   GET /api/workouts
+// @route   GET /workouts
 // @access  Private
 const getWorkouts = async (req, res) => {
   try {
@@ -14,7 +14,7 @@ const getWorkouts = async (req, res) => {
 };
 
 // @desc    Get a specific workout
-// @route   GET /api/workouts/:id
+// @route   GET /workouts/:id
 // @access  Private
 const getWorkout = async (req, res) => {
   try {
@@ -38,7 +38,7 @@ const getWorkout = async (req, res) => {
 };
 
 // @desc    Create a new workout
-// @route   POST /api/workouts
+// @route   POST /workouts
 // @access  Private
 const createWorkout = async (req, res) => {
   try {
@@ -73,7 +73,7 @@ const createWorkout = async (req, res) => {
 };
 
 // @desc    Update a workout
-// @route   PUT /api/workouts/:id
+// @route   PUT /workouts/:id
 // @access  Private
 const updateWorkout = async (req, res) => {
   try {
@@ -112,7 +112,7 @@ const updateWorkout = async (req, res) => {
 };
 
 // @desc    Delete a workout
-// @route   DELETE /api/workouts/:id
+// @route   DELETE /workouts/:id
 // @access  Private
 const deleteWorkout = async (req, res) => {
   try {
@@ -139,7 +139,7 @@ const deleteWorkout = async (req, res) => {
 };
 
 // @desc    Get workout stats
-// @route   GET /api/workouts/stats
+// @route   GET /workouts/stats
 // @access  Private
 const getWorkoutStats = async (req, res) => {
   try {

@@ -1,8 +1,9 @@
 const User = require('../models/userModel');
 const { generateToken } = require('../utils/jwtUtils');
+const bcrypt = require('bcrypt');
 
 // @desc    Register a new user
-// @route   POST /api/auth/register
+// @route   POST /auth/register
 // @access  Public
 const registerUser = async (req, res) => {
   try {
@@ -24,11 +25,12 @@ const registerUser = async (req, res) => {
       return res.status(400).json({ message: 'User already exists' });
     }
 
+    //NOTE: the password is being hashed in the userModel.js file **** dont stress about it
     // Create user
     const user = await User.create({
       name,
       email,
-      password,
+      password: password,
     });
 
     if (user) {
@@ -48,7 +50,7 @@ const registerUser = async (req, res) => {
 };
 
 // @desc    Login user
-// @route   POST /api/auth/login
+// @route   POST /auth/login
 // @access  Public
 const loginUser = async (req, res) => {
   try {
@@ -63,7 +65,14 @@ const loginUser = async (req, res) => {
     const user = await User.findOne({ email });
 
     // Check if user exists and password matches
-    if (user && (await user.matchPassword(password))) {
+    
+    if (!user) {
+      return res.status(401).json({ message: 'Invalid email or password' });
+    }
+    
+    //NOTE: the password is being hashed in the userModel.js file **** dont stress about it
+    const isMatch = await user.matchPassword(password);
+    if (user && isMatch) {
       res.json({
         _id: user._id,
         name: user.name,
@@ -80,7 +89,7 @@ const loginUser = async (req, res) => {
 };
 
 // @desc    Get user profile
-// @route   GET /api/auth/profile
+// @route   GET /auth/profile
 // @access  Private
 const getUserProfile = async (req, res) => {
   try {

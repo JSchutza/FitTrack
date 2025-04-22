@@ -2,7 +2,7 @@ const Goal = require('../models/goalModel');
 const Workout = require('../models/workoutModel');
 
 // @desc    Get user goals
-// @route   GET /api/goals
+// @route   GET /goals
 // @access  Private
 const getGoals = async (req, res) => {
   try {
@@ -20,7 +20,7 @@ const getGoals = async (req, res) => {
 };
 
 // @desc    Create or update user goals
-// @route   POST /api/goals
+// @route   POST /goals
 // @access  Private
 const setGoals = async (req, res) => {
   try {
@@ -57,7 +57,7 @@ const setGoals = async (req, res) => {
 };
 
 // @desc    Get goal progress
-// @route   GET /api/goals/progress
+// @route   GET /goals/progress
 // @access  Private
 const getGoalProgress = async (req, res) => {
   try {
