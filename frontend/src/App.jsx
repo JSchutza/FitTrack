@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { isAuthenticated } from './services/auth';
 
@@ -18,7 +18,7 @@ import ProtectedRoute from './components/Shared/ProtectedRoute';
 
 // dashboard components
 import RecentWorkouts from './components/Dashboard/RecentWorkouts';
-import AddWorkoutForm from './components/Dashboard/AddWorkoutForm';
+import WorkoutForm from './components/Dashboard/WorkoutForm';
 
 
 
@@ -48,12 +48,23 @@ function App() {
               path="/workouts/add" 
               element={
                 <ProtectedRoute isAuth={isAuth}>
-                  <AddWorkoutForm />
+                  <WorkoutForm />
                   <RecentWorkouts />
                 </ProtectedRoute>
               } 
             />
+
+            <Route 
+              path="/workouts/edit/:id"
+              element={
+                <ProtectedRoute isAuth={isAuth}>
+                  <WorkoutForm isEdit={true} />
+                </ProtectedRoute>
+              } 
+            />
+
             <Route path="/" element={<Home />} />
+
             <Route 
               path="/login" 
               element={
@@ -64,6 +75,7 @@ function App() {
                 )
               } 
             />
+
             <Route 
               path="/register" 
               element={
@@ -75,7 +87,6 @@ function App() {
               } 
             />
 
-            {/* Protected routes */}
             <Route 
               path="/dashboard" 
               element={
@@ -84,6 +95,7 @@ function App() {
                 </ProtectedRoute>
               } 
             />
+
             <Route 
               path="/goals" 
               element={

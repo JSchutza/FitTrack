@@ -41,4 +41,26 @@ const workoutSchema = new mongoose.Schema(
   }
 );
 
+
+// Pre-remove middleware to handle workout deletion
+workoutSchema.pre('remove', async function(next) {
+  try {
+    // Add any cleanup logic here if needed before removing the workout
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Instance method to remove a workout
+workoutSchema.methods.remove = async function() {
+  try {
+    return await this.constructor.deleteOne({ _id: this._id });
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+
 module.exports = mongoose.model('Workout', workoutSchema); 

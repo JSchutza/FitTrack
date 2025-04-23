@@ -74,7 +74,7 @@ const createWorkout = async (req, res) => {
 
 // @desc    Update a workout
 // @route   PUT /workouts/:id
-// @access  Private
+// @access  Private 
 const updateWorkout = async (req, res) => {
   try {
     const { title, type, date, duration, caloriesBurned, notes } = req.body;
