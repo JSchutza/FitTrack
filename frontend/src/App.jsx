@@ -22,7 +22,7 @@ import WorkoutForm from './components/Dashboard/WorkoutForm';
 
 // workouts components
 import Workouts from './pages/Workouts';
-
+import WorkoutDetails from './components/Shared/WorkoutDetails';
 
 
 
@@ -61,7 +61,6 @@ function App() {
               element={
                 <ProtectedRoute isAuth={isAuth}>
                   <WorkoutForm />
-                  <RecentWorkouts />
                 </ProtectedRoute>
               } 
             />
@@ -71,6 +70,15 @@ function App() {
               element={
                 <ProtectedRoute isAuth={isAuth}>
                   <WorkoutForm isEdit={true} />
+                </ProtectedRoute>
+              } 
+            />
+
+            <Route 
+              path="/workout/:id"
+              element={
+                <ProtectedRoute isAuth={isAuth}>
+                  <WorkoutDetails />
                 </ProtectedRoute>
               } 
             />

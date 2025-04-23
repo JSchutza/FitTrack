@@ -3,6 +3,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { logout } from '../../services/auth';
 
+
+
+
 const NavBar = ({ isAuth, onAuthChange }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
@@ -12,6 +15,9 @@ const NavBar = ({ isAuth, onAuthChange }) => {
     onAuthChange(false);
     navigate('/');
   };
+
+
+
 
   return (
     <nav className="bg-white shadow-md">
@@ -29,6 +35,7 @@ const NavBar = ({ isAuth, onAuthChange }) => {
             {isAuth ? (
               <>
                 <Link to="/dashboard" className="text-secondary-600 hover:text-primary-600 px-3 py-2 rounded-md">Dashboard</Link>
+                <Link to="/workouts" className="text-secondary-600 hover:text-primary-600 px-3 py-2 rounded-md">Workouts</Link>
                 <Link to="/goals" className="text-secondary-600 hover:text-primary-600 px-3 py-2 rounded-md">Goals</Link>
                 <button 
                   onClick={handleLogout}
@@ -83,6 +90,15 @@ const NavBar = ({ isAuth, onAuthChange }) => {
               >
                 Dashboard
               </Link>
+
+              <Link 
+                to="/workouts" 
+                className="block text-secondary-600 hover:text-primary-600 px-3 py-2 rounded-md"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Workouts
+              </Link>
+
               <Link 
                 to="/goals" 
                 className="block text-secondary-600 hover:text-primary-600 px-3 py-2 rounded-md"
@@ -90,6 +106,7 @@ const NavBar = ({ isAuth, onAuthChange }) => {
               >
                 Goals
               </Link>
+
               <button 
                 onClick={() => {
                   handleLogout();
@@ -99,6 +116,7 @@ const NavBar = ({ isAuth, onAuthChange }) => {
               >
                 Logout
               </button>
+
             </>
           ) : (
             <>
@@ -123,6 +141,8 @@ const NavBar = ({ isAuth, onAuthChange }) => {
     </nav>
   );
 };
+
+
 
 NavBar.propTypes = {
   isAuth: PropTypes.bool.isRequired,

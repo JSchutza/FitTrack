@@ -199,6 +199,48 @@ const getWorkoutStats = async (req, res) => {
   }
 };
 
+// @desc    Get workout stats for a specific workout by id
+// @route   GET /workouts/stats/:id
+// @access  Private
+const getWorkoutStatsById = async (req, res) => {
+  try {
+    const workout = await Workout.findById(req.params.id);
+
+    // Check if workout exists
+    if (!workout) {
+      return res.status(404).json({ message: 'Workout not found' });
+    }
+
+    // Check if user owns the workout by id
+    if (workout.user.toString() !== req.user._id.toString()) {
+      return res.status(401).json({ message: 'Not authorized' });
+    }
+
+    // Get workout stats
+    // Calculate stats for the single workout
+    const stats = {
+      duration: workout.duration,
+      type: workout.type,
+      caloriesBurned: workout.caloriesBurned || 0,
+      date: workout.date,
+      // Calculate time since workout
+      daysSinceWorkout: Math.floor((new Date() - new Date(workout.date)) / (1000 * 60 * 60 * 24)),
+      // Calculate intensity metrics if available
+      averageHeartRate: workout.heartRate || null,
+      perceivedExertion: workout.perceivedExertion || null
+    };
+
+    // Return stats
+    res.json(stats);
+    
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+
+
 module.exports = {
   getWorkouts,
   getWorkout,
@@ -206,4 +248,5 @@ module.exports = {
   updateWorkout,
   deleteWorkout,
   getWorkoutStats,
+  getWorkoutStatsById,
 }; 

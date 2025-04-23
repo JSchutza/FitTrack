@@ -1,5 +1,3 @@
-
-
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../services/api';
@@ -54,6 +52,7 @@ const Workouts = () => {
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {workouts.map((workout) => (
             <div key={workout._id} className="bg-white rounded-lg shadow-md p-4">
+            <Link to={`/workout/${workout._id}`}>
               <h3 className="text-xl font-semibold mb-2">{workout.title}</h3>
               <p className="text-gray-600 mb-2">Type: {workout.type}</p>
               <p className="text-gray-600 mb-2">Duration: {workout.duration} minutes</p>
@@ -63,6 +62,8 @@ const Workouts = () => {
               {workout.notes && (
                 <p className="text-gray-600 mb-2">Notes: {workout.notes}</p>
               )}
+            </Link>
+
               <div className="flex justify-end mt-4">
                 <Link
                   to={`/workouts/edit/${workout._id}`}
@@ -71,6 +72,7 @@ const Workouts = () => {
                   Edit
                 </Link>
               </div>
+
             </div>
           ))}
         </div>
