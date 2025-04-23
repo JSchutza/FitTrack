@@ -44,6 +44,16 @@ function App() {
         
         <main className="flex-grow container mx-auto px-4 py-6">
           <Routes>
+
+            <Route 
+              path="/workouts" 
+              element={
+                <ProtectedRoute isAuth={isAuth}>
+                  
+                </ProtectedRoute>
+              } 
+            />
+
             <Route 
               path="/workouts/add" 
               element={

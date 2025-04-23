@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import api from '../../services/api';
-import { toast } from 'react-toastify';
 import { useParams, useNavigate } from 'react-router-dom';
 
 
@@ -43,11 +42,9 @@ const WorkoutForm = ({ isEdit = false, }) => {
             setNotes(workout.notes);
           } else {
             console.error('No workout data received');
-            toast.error('No workout data found');
           }
         } catch (error) {
           console.error('Error fetching workout:', error);
-          toast.error('Failed to load previous workout details');
         }
       }
     };
@@ -122,8 +119,8 @@ const WorkoutForm = ({ isEdit = false, }) => {
         setDuration('');
         setCaloriesBurned('');
         setNotes('');
-        // show a success message
-        toast.success('Workout added successfully');
+        // navigate to the workouts page after adding a workout
+        navigate('/workouts');
       }
       // if the workout is not added, show an error message
     }
