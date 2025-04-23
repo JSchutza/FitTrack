@@ -20,6 +20,8 @@ import ProtectedRoute from './components/Shared/ProtectedRoute';
 import RecentWorkouts from './components/Dashboard/RecentWorkouts';
 import WorkoutForm from './components/Dashboard/WorkoutForm';
 
+// workouts components
+import Workouts from './pages/Workouts';
 
 
 
@@ -49,7 +51,7 @@ function App() {
               path="/workouts" 
               element={
                 <ProtectedRoute isAuth={isAuth}>
-                  
+                  <Workouts />
                 </ProtectedRoute>
               } 
             />
