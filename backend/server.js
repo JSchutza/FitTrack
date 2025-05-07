@@ -63,48 +63,6 @@ app.get('/', (req, res) => {
 });
 
 
-// Health check endpoint
-app.get('/health', async (req, res) => {
-  try {
-    const mongoose = require('mongoose');
-    const dbState = mongoose.connection.readyState;
-    let dbStatus;
-    
-    switch (dbState) {
-      case 0:
-        dbStatus = 'disconnected';
-        break;
-      case 1:
-        dbStatus = 'connected';
-        break;
-      case 2:
-        dbStatus = 'connecting';
-        break;
-      case 3:
-        dbStatus = 'disconnecting';
-        break;
-      default:
-        dbStatus = 'unknown';
-    }
-
-    res.json({
-      status: 'ok',
-      timestamp: new Date(),
-      database: {
-        state: dbStatus,
-        host: mongoose.connection.host,
-        name: mongoose.connection.name,
-        port: mongoose.connection.port,
-      }
-    });
-  } catch (error) {
-    res.status(500).json({
-      status: 'error',
-      message: 'Unable to get database status'
-    });
-  }
-});
-
 
 
 // Error handling middleware
@@ -113,9 +71,12 @@ app.use((err, req, res, next) => {
   res.status(500).json({ message: 'Something went wrong!' });
 });
 
-// Start server
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-}); 
+if (process.env.NODE_ENV !== 'production') {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => {
+    console.log(`Server running locally on port ${PORT}`);
+  });
+} else {
+  module.exports = app;
+} 
 

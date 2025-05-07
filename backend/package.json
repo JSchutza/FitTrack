@@ -23,9 +23,11 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.0",
+    "mongodb": "^6.16.0",
     "mongoose": "^7.0.3"
   },
   "devDependencies": {
+    "vercel": "^31.6.1",
     "nodemon": "^2.0.22"
   }
 }
