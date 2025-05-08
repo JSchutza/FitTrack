@@ -18,20 +18,26 @@ const client = new MongoClient(connectionString, {
   }
 });
 
+let cachedClient = null;
+
 async function connectDB() {
+  if (cachedClient) { return cachedClient; }
+
   try {
     // Updated to avoid potential issues if topology is undefined
     if (!client.topology || !(client.topology?.isConnected?.())) {
       await client.connect();
+      cachedClient = client;
       // Use the same database you specified in the URI
       const db = client.db('fittrackdb');
       await db.command({ ping: 1 });
       console.log("Pinged your deployment. You successfully connected to MongoDB!");
     }
-    return client;
+    return cachedClient;
   } catch (err) {
     console.error('MongoDB connection error:', err);
     throw err;
+    return null;
   }
 }
 
