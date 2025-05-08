@@ -15,10 +15,7 @@ dotenv.config();
 const app = express();
 
 // Middleware
-app.use(cors({
-  origin: '*',
-  credentials: true
-}));
+app.use(cors());
 app.use(express.json());
 
 // Connect to database
@@ -56,9 +53,10 @@ app.use((req, res, next) => {
 
 
 // Routes
-app.use('/auth', authRoutes);
-app.use('/workouts', workoutRoutes);
-app.use('/goals', goalRoutes);
+const BASE_URL = '/api';
+app.use(`${BASE_URL}/auth`, authRoutes);
+app.use(`${BASE_URL}/workouts`, workoutRoutes);
+app.use(`${BASE_URL}/goals`, goalRoutes);
 
 // Base route
 app.get('/', (req, res) => {
